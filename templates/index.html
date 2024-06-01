@@ -1,2 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <title>Media Tracker - Media Database and Tracker</title>
-<h1>Media tracker</h1>
+<h2>Front page</h2>
+
+{% if session.user_id %}
+You're logged in as <b>{{ session.user_name }}</b>. <a href="/logout">Log out</a>
+{% else %}
+You're not logged in. <a href="/login">Log in</a>
+{% endif %}
+
+
+
+{% if session.user_role == 2 %}
+<h3>Admin functions</h3>
+<ul>
+<li> <a href="/add">Add new show</a>
+<li> <a href="/remove">Remove show</a>
+</ul>
+{% endif %}
+
+{% endblock %}
