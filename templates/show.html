@@ -10,7 +10,7 @@
   <li>Release Date: {{ release_date }}</li>
 </ul>
 
-{% if session.user_id %}
+{% if session.user_id and session.user_role == 1 %}
 <h3>Review show</h3>
 <form action="/review" method="post">
 Rating:
