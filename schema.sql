@@ -15,7 +15,7 @@ CREATE TABLE shows (
 
 CREATE TABLE reviews (
     id SERIAL PRIMARY KEY,
-    creator_id INTEGER REFERENCES users,
+    user_id INTEGER REFERENCES users,
     show_id INTEGER REFERENCES shows,
     stars INTEGER,
     comment TEXT
@@ -23,7 +23,7 @@ CREATE TABLE reviews (
 
 CREATE TABLE watchlists (
     id SERIAL PRIMARY KEY,
-    creator_id INTEGER REFERENCES users,
+    user_id INTEGER REFERENCES users,
     show_id INTEGER REFERENCES shows,
     time_added TIMESTAMP
 );

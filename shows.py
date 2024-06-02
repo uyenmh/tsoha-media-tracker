@@ -25,14 +25,29 @@ def remove_show(show_id):
     db.session.execute(sql, {"id": show_id})
     db.session.commit()
  
-#def get_reviews(show_id):
-#    sql = text("""SELECT u.name, r.stars, r.comment FROM reviews r, users u
-#             WHERE r.user_id=u.id AND r.show_id=:show_id ORDER BY r.id""")
-#    return db.session.execute(sql, {"show_id": show_id}).fetchall()
+def get_reviews(show_id):
+    sql = text("""SELECT u.id, u.name, r.stars, r.comment FROM reviews r JOIN users u ON r.user_id = u.id
+             WHERE r.user_id=u.id AND r.show_id=:show_id ORDER BY r.id""")
+    return db.session.execute(sql, {"show_id": show_id}).fetchall()
 
-#def add_review(show_id, user_id, stars, comment):
-#    sql = text("""INSERT INTO reviews (show_id, user_id, stars, comment)
-#             VALUES (:show_id, :user_id, :stars, :comment)""")
-#    db.session.execute(sql, {"show_id": show_id, "user_id": user_id,
-#                             "stars": stars, "comment": comment})
-#    db.session.commit()
+def add_review(show_id, user_id, stars, comment):
+    sql = text("""INSERT INTO reviews (show_id, user_id, stars, comment)
+             VALUES (:show_id, :user_id, :stars, :comment)""")
+    db.session.execute(sql, {"show_id": show_id, "user_id": user_id,
+                             "stars": stars, "comment": comment})
+    db.session.commit()
+    
+def remove_own_review(show_id, user_id):
+    sql = text("DELETE FROM reviews WHERE show_id=:show_id AND user_id=:user_id")
+    db.session.execute(sql, {"show_id": show_id, "user_id": user_id})
+    db.session.commit()
+    
+def has_user_reviewed(show_id, user_id):
+    sql = text("SELECT COUNT(*) FROM  reviews WHERE show_id=:show_id AND user_id=:user_id")
+    result = db.session.execute(sql, {"show_id": show_id, "user_id": user_id}).fetchone()
+    return result[0] > 0
+    
+def remove_review_admin(review_id):
+    sql = text("DELETE FROM reviews WHERE id=:review_id")
+    db.session.execute(sql, {"review_id": review_id})
+    db.session.commit()

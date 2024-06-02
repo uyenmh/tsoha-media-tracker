@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<title>{{ title }} | Media Tracker</title>
 <h2>Show: {{ title }}</h2>
 
 <ul>
@@ -9,7 +10,49 @@
   <li>Release Date: {{ release_date }}</li>
 </ul>
 
+{% if session.user_id %}
+<h3>Review show</h3>
+<form action="/review" method="post">
+Rating:
+<select name="stars">
+<option value="1">1
+<option value="2">2
+<option value="3">3
+<option value="4">4
+<option value="5">5
+</select>
+<p>
+Comment:<br>
+<textarea name="comment" rows="3" cols="40" maxlength="1000"></textarea>
+<p><input type="submit" value="Submit">
+<input type="hidden" name="show_id" value="{{ id }}">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+{% endif %}
 
+{% if reviews %}
+<h3>Reviews</h3>
+{% endif %}
+
+<ul>
+{% for entry in reviews %}
+<li> {{ entry[1] }} ({{ entry[2] }}/5): "{{ entry[3] }}"
+{% if session.user_id == entry[0] %}
+<form action="/remove_own_review" method="post" style="display: inline;">
+    <input type="hidden" name="show_id" value="{{ id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <button type="submit">Remove</button>
+</form>
+{% endif %}
+{% if session.user_role == 2 %}
+<form action="/remove_review_admin" method="post" style="display: inline;">
+    <input type="hidden" name="show_id" value="{{ id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <button type="submit">Remove</button>
+</form>
+{% endif %}
+{% endfor %}
+</ul>
 
 <p>
 <a href="/">Front page</a>
