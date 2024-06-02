@@ -7,7 +7,7 @@ CREATE TABLE users (
 
 CREATE TABLE shows (
     id SERIAL PRIMARY KEY,
-    title TEXT,
+    title TEXT UNIQUE,
     type TEXT,
     description TEXT,
     release_date DATE
@@ -17,7 +17,7 @@ CREATE TABLE reviews (
     id SERIAL PRIMARY KEY,
     creator_id INTEGER REFERENCES users,
     show_id INTEGER REFERENCES shows,
-    rating TEXT,
+    stars INTEGER,
     comment TEXT
 );
 

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title>Add show | Media Tracker</title>
+<h2>Add new show</h2>
+
+<form action="/add_show" method="post">
+
+<p>Show title:<br>
+<input type="text" name="title" minlength="1" maxlength="100"></p>
+
+<p>Show type:<br>
+<select name="type">
+  <option value="movie">Movie</option>
+  <option value="series">Series</option>
+</select></p>
+
+<p>Show description:<br>
+<textarea name="description" rows="8" cols="40" maxlength="10000">
+</textarea></p>
+
+<p>Release date:<br>
+<input type="date" name="release_date"></p>
+
+<input type="submit" value="Submit">
+
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+</form>
+
+<p>
+<a href="/">Go back</a>
+
+{% endblock %}
