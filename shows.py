@@ -26,13 +26,24 @@ def remove_show(show_id):
     db.session.commit()
  
 def get_reviews(show_id):
-    sql = text("""SELECT u.id, u.name, r.stars, r.comment FROM reviews r JOIN users u ON r.user_id = u.id
-             WHERE r.user_id=u.id AND r.show_id=:show_id ORDER BY r.id""")
+    sql = text("""
+        SELECT r.id AS review_id,
+               u.id AS user_id,
+               u.name AS username,
+               r.stars AS stars,
+               r.comment AS comment
+        FROM reviews r
+        JOIN users u ON r.user_id = u.id
+        WHERE r.user_id=u.id AND r.show_id=:show_id
+        ORDER BY r.id
+    """)
     return db.session.execute(sql, {"show_id": show_id}).fetchall()
 
 def add_review(show_id, user_id, stars, comment):
-    sql = text("""INSERT INTO reviews (show_id, user_id, stars, comment)
-             VALUES (:show_id, :user_id, :stars, :comment)""")
+    sql = text("""
+        INSERT INTO reviews (show_id, user_id, stars, comment)
+        VALUES (:show_id, :user_id, :stars, :comment)
+    """)
     db.session.execute(sql, {"show_id": show_id, "user_id": user_id,
                              "stars": stars, "comment": comment})
     db.session.commit()
@@ -48,6 +59,9 @@ def has_user_reviewed(show_id, user_id):
     return result[0] > 0
     
 def remove_review_admin(review_id):
-    sql = text("DELETE FROM reviews WHERE id=:review_id")
+    sql = text("""
+        DELETE FROM reviews
+        WHERE id=:review_id
+    """)
     db.session.execute(sql, {"review_id": review_id})
     db.session.commit()

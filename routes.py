@@ -90,15 +90,16 @@ def remove_own_review():
     shows.remove_own_review(show_id, user_id)
 
     return redirect("/show/"+str(show_id))
-    
+
 @app.route("/remove_review_admin", methods=["POST"])
 def remove_review_admin():
     users.require_role(2)
     users.check_csrf()
 
     review_id = request.form["review_id"]
-
     shows.remove_review_admin(review_id)
+
+    show_id = request.form["show_id"]
 
     return redirect("/show/"+str(show_id))
 
