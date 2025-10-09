@@ -32,7 +32,7 @@ def add_show():
         show_id = shows.add_show(title, type, description, release_date)
         return redirect("/show/"+str(show_id))
         
-@app.route("/remove_show", methods=["POST"])
+@app.route("/remove_show", methods=["GET", "POST"])
 def remove_show():
     users.require_role(2)
 
