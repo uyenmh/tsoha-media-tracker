@@ -2,7 +2,7 @@
 
 The application allows the user to browse series and movies, add them to their personal watchlist, as well as add reviews. Each user is a basic user or an admin. 
 
-Application features:
+## Application features
 
 * The user can log in and log out, as well as make a new account.
 * The user can browse series and movies, and add them to their personal watchlist.
@@ -13,7 +13,7 @@ Application features:
 * The admin can add and remove shows.
 * The admin can remove reviews if necessary. 
 
-Current status:
+## Current status
 
 * The user can log in and log out, as well as make a new account. Granted, anyone can also make an admin account, which will need to be fixed.
 * The user can browse series and movies, but there is no watchlist function yet.
@@ -23,23 +23,33 @@ Current status:
 * The admin can add and remove shows.
 * The admin can remove reviews if necessary.
 
-Instructions for use:
+## Instructions for use
 
-Clone this repository to your own device and move to its root directory. Create an .env file in the folder and specify its content as follows:
+1. Clone this repository to your own device and move to its root directory. Create an .env file in the folder and specify its content as follows:
 
-DATABASE_URL=`<`database-local-address`>` <br>
-SECRET_KEY=`<`secret-key`>`
+```bash
+DATABASE_URL=<database-local-address>
+SECRET_KEY=<secret-key>
+```
 
-Next, activate the virtual environment and install the application's dependencies using the following commands:
+2. Next, activate the virtual environment and install the application's dependencies using the following commands:
 
-$ python3 -m venv venv <br>
-$ source venv/bin/activate <br>
-$ pip install -r ./requirements.txt <br>
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+```bash
+pip install -r ./requirements.txt
+```
 
-Define the database schema with the command:
+3. Define the database schema with the command:
 
-$ psql < schema.sql
+```bash
+psql < schema.sql
+```
 
-Now you can launch the application with the command:
+Launch the application with the command:
 
-$ flask run
+```bash
+flask run
+```
