@@ -20,6 +20,9 @@ You're not logged in. <a href="/login">Log in</a>
 {% endif %}
 
 <h3>Shows</h3>
+
+Search: <input type="search" name="search">
+
 <ul>
 {% for show in shows %}
 <li><a href="/show/{{ show.id }}">{{ show.title }}</a>
