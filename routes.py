@@ -5,7 +5,7 @@ import shows
 
 @app.route("/")
 def index():
-    return render_template("index.html", shows=shows.get_all_shows())    
+    return render_template("index.html", shows=shows.get_all_shows(), keyword=None)    
     
 @app.route("/add_show", methods=["GET", "POST"])
 def add_show():
@@ -143,4 +143,8 @@ def logout():
     users.logout()
     return redirect("/")
 
-
+@app.route("/search", methods=["POST"])
+def search():
+    keyword = request.form["keyword"]
+    results = shows.search_shows(keyword)
+    return render_template("index.html", shows=results, keyword=keyword)

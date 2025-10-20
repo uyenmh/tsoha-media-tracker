@@ -85,3 +85,13 @@ def remove_review_admin(review_id):
     """)
     db.session.execute(sql, {"review_id": review_id})
     db.session.commit()
+
+def search_shows(keyword):
+    sql = text("""
+        SELECT id, title
+        FROM shows
+        WHERE title ILIKE :keyword
+        ORDER BY title
+    """)
+    result = db.session.execute(sql, {"keyword": f"%{keyword}%"}).fetchall()
+    return result
