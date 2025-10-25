@@ -21,7 +21,7 @@ You're not logged in. <a href="/login">Log in</a>
 
 <h3>Shows</h3>
 <form action="/search" method="post">
-    <input type="text" name="keyword" value="{{ keyword }}" placeholder="Search shows">
+    <input type="text" name="keyword" {% if keyword %}value="{{ keyword }}"{% endif%} placeholder="Search shows">
     <input type="submit" value="Search">
 </form>
 
