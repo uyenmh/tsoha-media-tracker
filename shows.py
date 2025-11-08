@@ -108,5 +108,15 @@ def calculate_avg_rating(show_id):
         result = "N/A"
     else:
         result = round(result[0], 2)
+        save_avg_rating(show_id, result)
 
     return result
+
+def save_avg_rating(show_id, avg_rating):
+    sql = text("""
+        UPDATE shows
+        SET avg_rating=:avg_rating
+        WHERE id=:show_id
+    """)
+    db.session.execute(sql, {"avg_rating": avg_rating, "show_id": show_id})
+    db.session.commit()

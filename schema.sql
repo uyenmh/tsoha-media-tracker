@@ -11,6 +11,7 @@ CREATE TABLE shows (
     type TEXT,
     description TEXT,
     release_date DATE
+    avg_rating FLOAT
 );
 
 CREATE TABLE reviews (
