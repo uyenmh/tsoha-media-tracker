@@ -95,3 +95,18 @@ def search_shows(keyword):
     """)
     result = db.session.execute(sql, {"keyword": f"%{keyword}%"}).fetchall()
     return result
+
+def calculate_avg_rating(show_id):
+    sql = text("""
+        SELECT AVG(stars)
+        FROM reviews
+        WHERE show_id=:show_id
+    """)
+    result = db.session.execute(sql, {"show_id": show_id}).fetchone()
+
+    if result[0] is None:
+        result = "N/A"
+    else:
+        result = round(result[0], 2)
+
+    return result

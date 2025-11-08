@@ -53,8 +53,9 @@ def remove_show():
 def show_show(show_id):
     info = shows.get_show_info(show_id)
     reviews = shows.get_reviews(show_id)
-    
-    return render_template("show.html", id=show_id, title=info[0], type=info[1], description=info[2], release_date=info[3], reviews=reviews)    
+    avg_rating = shows.calculate_avg_rating(show_id)
+
+    return render_template("show.html", id=show_id, title=info[0], type=info[1], description=info[2], release_date=info[3], reviews=reviews, avg_rating=avg_rating)    
     
 @app.route("/review", methods=["GET", "POST"])
 def review():
