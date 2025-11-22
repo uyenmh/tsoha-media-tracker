@@ -9,6 +9,13 @@
 <p>Show title:<br>
 <input type="text" name="title" minlength="1" maxlength="100"></p>
 
+<p>Genre:<br>
+<select name="genres" multiple>
+  {% for genre in genres %}
+    <option value="{{ genre.id }}">{{ genre.name }}</option>
+  {% endfor %}
+</select></p>
+
 <p>Show type:<br>
 <select name="type">
   <option value="movie">Movie</option>

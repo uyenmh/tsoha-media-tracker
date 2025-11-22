@@ -10,7 +10,7 @@ CREATE TABLE shows (
     title TEXT UNIQUE,
     type TEXT,
     description TEXT,
-    release_date DATE
+    release_date DATE,
     avg_rating FLOAT
 );
 
@@ -31,7 +31,7 @@ CREATE TABLE watchlists (
 
 CREATE TABLE genres (
     id SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT UNIQUE
 );
 
 CREATE TABLE shows_genres (

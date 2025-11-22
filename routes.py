@@ -12,7 +12,7 @@ def add_show():
     users.require_role(2)
 
     if request.method == "GET":
-        return render_template("add_show.html")
+        return render_template("add_show.html", genres=shows.get_all_genres())
 
     if request.method == "POST":
         users.check_csrf()
@@ -21,7 +21,10 @@ def add_show():
         if len(title) < 1 or len(title) > 100:
             return render_template("error.html", message="Title must be 1-100 characters")
 
-        type = request.form["type"]
+        show_type = request.form["type"]
+
+        genre_ids = request.form.getlist("genres")
+        genre_ids = [int(genre_id) for genre_id in genre_ids]
         
         description = request.form["description"]
         if len(description) > 10000:
@@ -29,7 +32,7 @@ def add_show():
             
         release_date = request.form["release_date"]
 
-        show_id = shows.add_show(title, type, description, release_date)
+        show_id = shows.add_show(title, show_type, description, release_date, genre_ids)
         return redirect("/show/"+str(show_id))
         
 @app.route("/remove_show", methods=["GET", "POST"])
@@ -54,8 +57,9 @@ def show_show(show_id):
     info = shows.get_show_info(show_id)
     reviews = shows.get_reviews(show_id)
     avg_rating = shows.calculate_avg_rating(show_id)
+    genres = shows.get_show_genres(show_id)
 
-    return render_template("show.html", id=show_id, title=info[0], type=info[1], description=info[2], release_date=info[3], reviews=reviews, avg_rating=avg_rating)    
+    return render_template("show.html", id=show_id, title=info[0], type=info[1], description=info[2], release_date=info[3], reviews=reviews, avg_rating=avg_rating, genres=genres)
     
 @app.route("/review", methods=["GET", "POST"])
 def review():
@@ -149,3 +153,17 @@ def search():
     keyword = request.form["keyword"]
     results = shows.search_shows(keyword)
     return render_template("index.html", shows=results, keyword=keyword)
+
+@app.route("/manage_genres", methods=["GET", "POST"])
+def manage_genres():
+    users.require_role(2)
+
+    if request.method == "GET":
+        return render_template("manage_genres.html", genres=shows.get_all_genres())
+
+    if request.method == "POST":
+        users.check_csrf()
+        genre_name = request.form["genre_name"]
+        shows.add_genre(genre_name)
+
+        return redirect("/manage_genres")

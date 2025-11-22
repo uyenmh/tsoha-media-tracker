@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title>Manage genres | Media Tracker</title>
+<h2>Add new genre</h2>
+
+<form action="/manage_genres" method="post">
+
+    <p>Genre:<br>
+    <input type="text" name="genre_name" minlength="1" maxlength="100"></p>
+
+    <input type="submit" value="Submit">
+
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+</form>
+
+<h2>Existing genres</h2>
+{% for genre in genres %}
+    <li>{{ genre.name }}</li>
+{% endfor %}
+
+<p>
+<a href="/">Go back</a>
+
+{% endblock %}
