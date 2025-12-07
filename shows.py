@@ -98,10 +98,13 @@ def remove_review_admin(review_id):
 
 def search_shows(keyword):
     sql = text("""
-        SELECT id, title
-        FROM shows
-        WHERE title ILIKE :keyword
-        ORDER BY title
+        SELECT DISTINCT s.id, s.title
+        FROM shows s
+        LEFT JOIN shows_genres sg ON s.id = sg.show_id
+        LEFT JOIN genres g ON g.id = sg.genre_id
+        WHERE s.title ILIKE :keyword
+           OR g.name ILIKE :keyword
+        ORDER BY s.title
     """)
     result = db.session.execute(sql, {"keyword": f"%{keyword}%"}).fetchall()
     return result
