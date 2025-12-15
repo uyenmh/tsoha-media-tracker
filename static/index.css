@@ -96,26 +96,3 @@
 .shows-list a:hover {
     color: rgb(41, 41, 41);
 }
-
-/* forms */
-input[type="submit"] {
-    background-color: #4c8bafe6;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 7px 10px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-input[type="submit"]:hover {
-    background-color: #457d9e;
-}
-
-input[type="text"],
-select {
-    border-radius: 12px;
-    padding: 7px 10px;
-    border: 1px solid #ccc;
-    font-size: 12px;
-}
