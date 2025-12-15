@@ -49,36 +49,34 @@
     </div>
 {% endif %}
 
-<div class="reviews-container">
-    {% if reviews %}
+{% if reviews %}
+    <div class="reviews-container">
         <h3>Reviews</h3>
-    {% endif %}
-
-    <div class="reviews-list">
-        <ul>
-            {% for entry in reviews %}
-                <li> {{ entry.username }} ({{ entry.stars }}/5): "{{ entry.comment }}"
-                {% if session.user_id == entry.user_id %}
-                    <form action="/remove_own_review" method="post" style="display: inline;">
-                        <input type="hidden" name="show_id" value="{{ id }}">
-                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                        <input type="submit" value="Remove">
-                    </form>
-                {% endif %}
-                {% if session.user_role == 2 %}
-                    <form action="/remove_review_admin" method="post" style="display: inline;">
-                        <input type="hidden" name="show_id" value="{{ id }}">
-                        <input type="hidden" name="review_id" value="{{ entry.review_id }}">
-                        <input type="hidden" name="user_id" value="{{ entry.user_id }}">
-                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                        <input type="submit" value="Remove">
-                    </form>
-                {% endif %}
-            {% endfor %}
-        </ul>
+        <div class="reviews-list">
+            <ul>
+                {% for entry in reviews %}
+                    <li> {{ entry.username }} ({{ entry.stars }}/5): "{{ entry.comment }}"
+                    {% if session.user_id == entry.user_id %}
+                        <form action="/remove_own_review" method="post" style="display: inline;">
+                            <input type="hidden" name="show_id" value="{{ id }}">
+                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                            <input type="submit" value="Remove">
+                        </form>
+                    {% endif %}
+                    {% if session.user_role == 2 %}
+                        <form action="/remove_review_admin" method="post" style="display: inline;">
+                            <input type="hidden" name="show_id" value="{{ id }}">
+                            <input type="hidden" name="review_id" value="{{ entry.review_id }}">
+                            <input type="hidden" name="user_id" value="{{ entry.user_id }}">
+                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                            <input type="submit" value="Remove">
+                        </form>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-</div>
-
+{% endif %}
 
 <a href="/" class="button">Return home</a>
 
