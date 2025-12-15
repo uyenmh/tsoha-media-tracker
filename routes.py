@@ -59,7 +59,20 @@ def show_show(show_id):
     avg_rating = shows.calculate_avg_rating(show_id)
     genres = shows.get_show_genres(show_id)
 
-    return render_template("show.html", id=show_id, title=info[0], type=info[1], description=info[2], release_date=info[3], reviews=reviews, avg_rating=avg_rating, genres=genres)
+    in_watchlist = shows.is_in_watchlist(users.user_id(), show_id)
+
+    return render_template(
+        "show.html",
+        id=show_id,
+        title=info[0],
+        type=info[1],
+        description=info[2],
+        release_date=info[3],
+        reviews=reviews,
+        avg_rating=avg_rating,
+        genres=genres,
+        in_watchlist=in_watchlist
+    )
     
 @app.route("/review", methods=["GET", "POST"])
 def review():
@@ -167,3 +180,36 @@ def manage_genres():
         shows.add_genre(genre_name)
 
         return redirect("/manage_genres")
+
+@app.route("/my_watchlist", methods=["GET"])
+def view_watchlist():
+    users.require_role(1)
+
+    user_id = users.user_id()
+    user_watchlist = shows.get_watchlist(user_id)
+
+    return render_template("watchlist.html", shows=user_watchlist)
+
+@app.route("/add_to_watchlist", methods=["POST"])
+def add_to_watchlist():
+    users.require_role(1)
+    users.check_csrf()
+
+    show_id = request.form["show_id"]
+    user_id = users.user_id()
+
+    shows.add_to_watchlist(user_id, show_id)
+
+    return redirect("/show/"+str(show_id))
+
+@app.route("/remove_from_watchlist", methods=["POST"])
+def remove_from_watchlist():
+    users.require_role(1)
+    users.check_csrf()
+
+    show_id = request.form["show_id"]
+    user_id = users.user_id()
+
+    shows.remove_from_watchlist(user_id, show_id)
+
+    return redirect("/show/"+str(show_id))

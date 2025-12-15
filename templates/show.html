@@ -13,6 +13,12 @@
 </ul>
 
 {% if session.user_id and session.user_role == 1 %}
+<form action="{% if in_watchlist %}/remove_from_watchlist{% else %}/add_to_watchlist{% endif %}" method="post">
+    <input type="hidden" name="show_id" value="{{ id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <input type="submit" value="{% if in_watchlist %}Remove from my watchlist{% else %}Add to my watchlist{% endif %}">
+</form>
+
 <h3>Review show</h3>
 <form action="/review" method="post">
     Rating:

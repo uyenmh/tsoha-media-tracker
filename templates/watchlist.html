@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title>My watchlist | Media Tracker</title>
+<h2>My watchlist</h2>
+
+<ul>
+{% for show in shows %}
+<li><a href="/show/{{ show.id }}">{{ show.title }}</a>
+{% endfor %}
+</ul>
+
+<p>
+<a href="/">Front page</a>
+
+{% endblock %}

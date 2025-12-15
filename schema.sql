@@ -26,7 +26,6 @@ CREATE TABLE watchlists (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     show_id INTEGER REFERENCES shows,
-    time_added TIMESTAMP
 );
 
 CREATE TABLE genres (

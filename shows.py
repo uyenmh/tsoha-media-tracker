@@ -159,3 +159,38 @@ def get_show_genres(show_id):
         ORDER BY g.name
     """)
     return db.session.execute(sql, {"show_id": show_id}).fetchall()
+
+def get_watchlist(user_id):
+    sql = text("""
+        SELECT s.id, s.title
+        FROM watchlists w
+        JOIN shows s ON w.show_id = s.id
+        WHERE w.user_id = :user_id
+        ORDER BY s.title
+    """)
+    return db.session.execute(sql, {"user_id": user_id}).fetchall()
+
+def add_to_watchlist(user_id, show_id):
+    sql = text("""
+        INSERT INTO watchlists (user_id, show_id)
+        VALUES (:user_id, :show_id)
+    """)
+    db.session.execute(sql, {"user_id": user_id, "show_id": show_id})
+    db.session.commit()
+
+def remove_from_watchlist(user_id, show_id):
+    sql = text("""
+        DELETE FROM watchlists
+        WHERE user_id=:user_id AND show_id=:show_id
+    """)
+    db.session.execute(sql, {"user_id": user_id, "show_id": show_id})
+    db.session.commit()
+
+def is_in_watchlist(user_id, show_id):
+    sql = text("""
+        SELECT COUNT(*)
+        FROM watchlists
+        WHERE user_id=:user_id AND show_id=:show_id
+    """)
+    result = db.session.execute(sql, {"user_id": user_id, "show_id": show_id}).fetchone()
+    return result[0] > 0

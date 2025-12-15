@@ -10,6 +10,11 @@ You're logged in as <b>{{ session.user_name }}</b>. <a href="/logout">Log out</a
 You're not logged in. <a href="/login">Log in</a>
 {% endif %}
 
+{% if session.user_role == 1 %}
+<a href="/my_watchlist">My watchlist</a>
+{% endif %}
+
+
 {% if session.user_role == 2 %}
 <h3>Admin functions</h3>
 <ul>
