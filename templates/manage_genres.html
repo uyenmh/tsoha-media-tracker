@@ -1,26 +1,38 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="/static/manage_genres.css">
 
 <title>Manage genres | Media Tracker</title>
-<h2>Add new genre</h2>
 
-<form action="/manage_genres" method="post">
+<div class="manage-genres-container">
+    <div class="manage-genres-header">
+        <h2>Add new genre</h2>
+    </div>
 
-    <p>Genre:<br>
-    <input type="text" name="genre_name" minlength="1" maxlength="100"></p>
+    <form action="/manage_genres" method="post">
+        <div class="new-genre">
+            <p>Genre:
+            <input type="text" name="genre_name" minlength="1" maxlength="100"></p>
+        </div>
+        <input type="submit" value="Submit">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+</div>
 
-    <input type="submit" value="Submit">
+<div class="existing-genres-container">
+    <div class="existing-genres-header">
+        <h2>Existing genres</h2>
+    </div>
 
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <div class="genres-list">
+        <ul>
+            {% for genre in genres %}
+                <li>{{ genre.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
-</form>
-
-<h2>Existing genres</h2>
-{% for genre in genres %}
-    <li>{{ genre.name }}</li>
-{% endfor %}
-
-<p>
-<a href="/">Go back</a>
+<a href="/" class="button">Return home</a>
 
 {% endblock %}
