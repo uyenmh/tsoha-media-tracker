@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<title>Media Tracker - Media Database and Tracker</title>
+<title>Media Tracker | Media Database and Tracker</title>
 <h2>Front page</h2>
 
 {% if session.user_id %}
@@ -24,10 +24,20 @@ You're not logged in. <a href="/login">Log in</a>
 </ul>
 {% endif %}
 
-<h3>Shows</h3>
+<h3>Shows</h3> 
 <form action="/search" method="post">
     <input type="text" name="keyword" {% if keyword %}value="{{ keyword }}"{% endif%} placeholder="Search shows">
     <input type="submit" value="Search">
+</form>
+
+<form action =/ method="get">
+<label for="sort_by">Sort by:</label>
+<select name="sort_by" id="sort_by">
+  <option value="Title"> Title</option>
+  <option value="Rating">Rating</option>
+  <option value="Release date">Release date</option>
+</select>
+<input type="submit" value="Sort">
 </form>
 
 <ul>

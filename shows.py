@@ -2,12 +2,25 @@ from db import db
 from flask import abort, request, session
 from sqlalchemy import text
 
-def get_all_shows():
-    sql = text("""
-        SELECT id, title
-        FROM shows
-        ORDER BY title
-    """)
+def get_all_shows(sort_by):
+    if sort_by == "Rating":
+        sql = text("""
+            SELECT id, title
+            FROM shows
+            ORDER BY avg_rating DESC NULLS LAST
+        """)
+    elif sort_by == "Release date":
+        sql = text("""
+            SELECT id, title
+            FROM shows
+            ORDER BY release_date DESC
+        """)
+    else:
+        sql = text("""
+            SELECT id, title
+            FROM shows
+            ORDER BY title
+        """)
     return db.session.execute(sql).fetchall()
 
 def get_show_info(show_id):

@@ -5,8 +5,9 @@ import shows
 
 @app.route("/")
 def index():
-    return render_template("index.html", shows=shows.get_all_shows(), keyword=None)    
-    
+    sort_by = request.args.get("sort_by", "Title")
+    return render_template("index.html", shows=shows.get_all_shows(sort_by), keyword=None)
+
 @app.route("/add_show", methods=["GET", "POST"])
 def add_show():
     users.require_role(2)
