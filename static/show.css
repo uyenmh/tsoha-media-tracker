@@ -1,0 +1,62 @@
+/* show info */
+.show-container {
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #a9c7d9;
+    margin-bottom: 10px;
+    background-color: #a9c7d9;
+    color: rgb(41, 41, 41);
+}
+
+.show-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.show-info ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.show-info li {
+    padding: 3px 5px;
+    color: rgb(41, 41, 41);
+}
+
+/* reviews */
+.make-review {
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #a9c7d9;
+    margin-bottom: 10px;
+    background-color: #a9c7d965;
+    color: rgb(41, 41, 41);
+}
+
+.make-review form select,
+.make-review form textarea {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.reviews-container {
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #a9c7d9;
+    margin-bottom: 12px;
+    background-color: #a9c7d965;
+    color: rgb(41, 41, 41);
+}
+
+.reviews-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.reviews-list li {
+    padding: 3px 5px;
+    color: rgb(41, 41, 41);
+}
