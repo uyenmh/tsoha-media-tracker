@@ -1,19 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="/static/login.css">
 
 <title>Log in | Media Tracker</title>
-<h2>Log in</h2>
 
-<form action="/login" method="post">
-Username: <br><input type="text" name="username">
-<p>
-Password: <br><input type="password" name="password">
-<p>
-<input type="submit" value="Log in">
-</form>
-If you don't have an account, register <a href="/register">here</a>
+<div class="login-container">
+    <div class="login-header">
+        <h2>Log in</h2>
+    </div>
 
-<p>
-<a href="/">Front page</a>
+    <form action="/login" method="post">
+        <div class="user-info">
+            Username:
+            <input type="text" name="username">
+            Password:
+            <input type="password" name="password">
+        </div>
+        <input type="submit" value="Log in">
+    </form>
+
+    <div class="register">
+        If you don't have an account, register here <a href="/register" class="button">Register</a>
+    </div>
+</div>
+
+
+<a href="/" class="button">Return home</a>
 
 {% endblock %}
