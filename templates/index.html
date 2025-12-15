@@ -4,16 +4,16 @@
 
 <title> Home | Media Tracker </title>
 
-<div class="admin-functions">
-    {% if session.user_role == 2 %}
+{% if session.user_role == 2 %}
+    <div class="admin-functions">
         <h3>Admin functions</h3>
         <ul>
             <li> <a href="/add_show">Add new show</a>
             <li> <a href="/remove_show">Remove show</a>
             <li> <a href="/manage_genres">Manage genres</a>
         </ul>
-    {% endif %}
-</div>
+    </div>
+{% endif %}
 
 <div class="shows">
     <div class="shows-header">
