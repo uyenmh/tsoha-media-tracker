@@ -1,16 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="/static/watchlist.css">
 
 <title>My watchlist | Media Tracker</title>
-<h2>My watchlist</h2>
 
-<ul>
-{% for show in shows %}
-<li><a href="/show/{{ show.id }}">{{ show.title }}</a>
-{% endfor %}
-</ul>
+<div class="watchlist-container">
+    <h2>My watchlist</h2>
 
-<p>
-<a href="/">Front page</a>
+    <div class="watchlist-shows">
+        <ul>
+            {% for show in shows %}
+                <li><a href="/show/{{ show.id }}">{{ show.title }}</a>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<a href="/" class="button">Return home</a>
 
 {% endblock %}
