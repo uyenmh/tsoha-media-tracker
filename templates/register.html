@@ -1,24 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="/static/register.css">
 
 <title>Register | Media Tracker</title>
-<h2>Register</h2>
 
-<form action="/register" method="post">
-Username: <br><input type="text" name="username" minlength="1" maxlength="20">
-<p>
-Password: <br><input type="password" name="password">
-<p>
-User type:
-<select name="role">
-<option value=1> regular user
-<option value=2> admin
-</select>
-<p>
-<input type="submit" value="Create account">
-</form>
+<div class="register-container">
+    <div class="register-header">
+        <h2>Register</h2>
+    </div>
 
-<p>
-<a href="/login">Log in</a>
+    <form action="/register" method="post">
+        <div class="user-info">
+            Username: <br><input type="text" name="username" minlength="1" maxlength="20">
+            Password: <br><input type="password" name="password">
+            User type:
+            <select name="role">
+                <option value=1> regular user
+                <option value=2> admin
+            </select>
+        </div>
+        <input type="submit" value="Create account">
+    </form>
+</div>
+
+<a href="/" class="button">Return home</a>
 
 {% endblock %}
