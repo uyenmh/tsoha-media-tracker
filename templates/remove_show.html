@@ -1,20 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="/static/remove_show.css">
 
-<h2>Remove show</h2>
+<title>Remove show | Media Tracker</title>
 
+<div class="remove-show-container">
+    <div class="remove-show-header">
+        <h2>Remove show</h2>
+    </div>
 
-<form action="/remove_show" method="post">
-    <label for="show_id">Select Show to Remove:</label>
-    <select name="show_id" id="show_id">
-        {% for show in shows %}
-        <option value="{{ show.id }}">{{ show.title }}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Remove">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-</form>
+    <form action="/remove_show" method="post">
+        <label for="show_id">Select Show to Remove:</label>
+        <select name="show_id" id="show_id">
+            {% for show in shows %}
+                <option value="{{ show.id }}">{{ show.title }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Remove">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+</div>
 
-<p><a href="/">Front page</a></p>
+<a href="/" class="button">Return home</a>
 
 {% endblock %}
