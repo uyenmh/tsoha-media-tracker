@@ -1,41 +1,57 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="/static/add_show.css">
+
 
 <title>Add show | Media Tracker</title>
-<h2>Add new show</h2>
 
-<form action="/add_show" method="post">
+<div class="add-show-container">
 
-<p>Show title:<br>
-<input type="text" name="title" minlength="1" maxlength="100"></p>
+    <div class="add-show-header">
+        <h2>Add new show</h2>
+    </div>
 
-<p>Genre:<br>
-<select name="genres" multiple>
-  {% for genre in genres %}
-    <option value="{{ genre.id }}">{{ genre.name }}</option>
-  {% endfor %}
-</select></p>
+    <form action="/add_show" method="post">
 
-<p>Show type:<br>
-<select name="type">
-  <option value="movie">Movie</option>
-  <option value="series">Series</option>
-</select></p>
+      <div class="title">
+          <p>Show title:
+          <input type="text" name="title" minlength="1" maxlength="100"></p>
+      </div>
 
-<p>Show description:<br>
-<textarea name="description" rows="8" cols="40" maxlength="10000">
-</textarea></p>
+      <div class="genre">
+          <p>Genre:
+          <select name="genres" multiple>
+              {% for genre in genres %}
+                <option value="{{ genre.id }}">{{ genre.name }}</option>
+              {% endfor %}
+          </select></p>
+      </div>
 
-<p>Release date:<br>
-<input type="date" name="release_date"></p>
+      <div class="type">
+          <p>Show type:
+          <select name="type">
+              <option value="series">Series</option>
+              <option value="movie">Movie</option>
+          </select></p>
+      </div>
 
-<input type="submit" value="Submit">
+      <div class="description">
+          <p>Show description:
+          <textarea name="description" rows="8" cols="40" maxlength="10000">
+          </textarea></p>
+      </div>
 
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <div class="release_date">
+          <p>Release date:
+          <input type="date" name="release_date"></p>
+      </div>
 
-</form>
+        <input type="submit" value="Submit">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+</div>
 
-<p>
-<a href="/">Go back</a>
+<a href="/" class="button">Return home</a>
+
 
 {% endblock %}

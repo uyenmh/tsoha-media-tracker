@@ -1,0 +1,22 @@
+.add-show-container {
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #a9c7d9;
+    margin-bottom: 12px;
+    background-color: #a9c7d965;
+    color: rgb(41, 41, 41);
+}
+
+.add-show-container form p {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    padding: 8px 0px;
+}
+
+.add-show-header {
+    margin-bottom: 10px;
+}
+
+.description textarea {
+    resize: vertical;
+}
