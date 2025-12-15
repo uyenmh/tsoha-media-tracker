@@ -55,6 +55,24 @@ def add_show(title, type, description, release_date, genre_ids=[]):
     
 def remove_show(show_id):
     sql = text("""
+        DELETE FROM shows_genres
+        WHERE show_id=:show_id
+    """)
+    db.session.execute(sql, {"show_id": show_id})
+
+    sql = text("""
+        DELETE FROM watchlists
+        WHERE show_id=:show_id
+    """)
+    db.session.execute(sql, {"show_id": show_id})
+
+    sql = text("""
+        DELETE FROM reviews
+        WHERE show_id=:show_id
+    """)
+    db.session.execute(sql, {"show_id": show_id})
+
+    sql = text("""
         DELETE FROM shows
         WHERE id=:id
     """)
