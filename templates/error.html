@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="/static/error.css">
 
-Error: {{ message }}
+<div class="error-container">
+    Error: {{ message }}
+</div>
+
+<a href="/" class="button">Return home</a>
 
 {% endblock %}
