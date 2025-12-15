@@ -2,7 +2,7 @@ from db import db
 from flask import abort, request, session
 from sqlalchemy import text
 
-def get_all_shows(sort_by):
+def get_all_shows(sort_by="Title"):
     if sort_by == "Rating":
         sql = text("""
             SELECT id, title
