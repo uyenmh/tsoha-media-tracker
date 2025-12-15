@@ -1,6 +1,23 @@
 <!doctype html>
 <link rel="stylesheet" href="/static/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<h1>Media tracker</h1>
-<hr>
+
+<div class="navigation">
+    <h2><a href="/"> Media Tracker </a></h2>
+
+    <div class="user-container">
+        {% if session.user_id %}
+            <h3>You're logged in as <b>{{ session.user_name }}</b></h3>
+                {% if session.user_role == 1 %}
+                    <h3><a href="/my_watchlist">My watchlist</a></h3>
+                {% endif %}
+                <h3><a href="/logout">Log out</a></h3>
+            </h3>
+        {% else %}
+            <h3>You're not logged in</h3>
+            <h3><a href="/login">Log in</a></h3>
+        {% endif %}
+    </div>
+</div>
+
 {% block content %}{% endblock %}

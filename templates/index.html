@@ -1,49 +1,50 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<title>Media Tracker | Media Database and Tracker</title>
-<h2>Front page</h2>
+<title> Home | Media Tracker </title>
 
-{% if session.user_id %}
-You're logged in as <b>{{ session.user_name }}</b>. <a href="/logout">Log out</a>
-{% else %}
-You're not logged in. <a href="/login">Log in</a>
-{% endif %}
+<div class="admin-functions">
+    {% if session.user_role == 2 %}
+        <h3>Admin functions</h3>
+        <ul>
+            <li> <a href="/add_show">Add new show</a>
+            <li> <a href="/remove_show">Remove show</a>
+            <li> <a href="/manage_genres">Manage genres</a>
+        </ul>
+    {% endif %}
+</div>
 
-{% if session.user_role == 1 %}
-<a href="/my_watchlist">My watchlist</a>
-{% endif %}
+<div class="shows">
+    <div class="shows-header">
+        <h3>Shows</h3>
+        <div class="search-sort-container">
+            <div class="search">
+                <form action="/search" method="post">
+                    <input type="text" name="keyword" {% if keyword %}value="{{ keyword }}"{% endif%} placeholder="Search shows">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+            <div class="sort">
+                <form action =/ method="get">
+                    <label for="sort_by">Sort by:</label>
+                    <select name="sort_by" id="sort_by">
+                        <option value="Title" {% if sort_by == "Title" %} selected {% endif %}> Title</option>
+                        <option value="Rating" {% if sort_by == "Rating" %} selected {% endif %}>Rating</option>
+                        <option value="Release date" {% if sort_by == "Release date" %} selected {% endif %}>Release date</option>
+                    </select>
+                    <input type="submit" value="Sort">
+                </form>
+            </div>
+        </div>
+    </div>
 
-
-{% if session.user_role == 2 %}
-<h3>Admin functions</h3>
-<ul>
-<li> <a href="/add_show">Add new show</a>
-<li> <a href="/remove_show">Remove show</a>
-<li> <a href="/manage_genres">Manage genres</a>
-</ul>
-{% endif %}
-
-<h3>Shows</h3> 
-<form action="/search" method="post">
-    <input type="text" name="keyword" {% if keyword %}value="{{ keyword }}"{% endif%} placeholder="Search shows">
-    <input type="submit" value="Search">
-</form>
-
-<form action =/ method="get">
-<label for="sort_by">Sort by:</label>
-<select name="sort_by" id="sort_by">
-  <option value="Title"> Title</option>
-  <option value="Rating">Rating</option>
-  <option value="Release date">Release date</option>
-</select>
-<input type="submit" value="Sort">
-</form>
-
-<ul>
-{% for show in shows %}
-<li><a href="/show/{{ show.id }}">{{ show.title }}</a>
-{% endfor %}
-</ul>
+    <div class="shows-list">
+        <ul>
+        {% for show in shows %}
+            <li><a href="/show/{{ show.id }}">{{ show.title }}</a>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
 
 {% endblock %}
