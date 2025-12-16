@@ -77,10 +77,11 @@ The application's functions are relatively simple and their names are descriptiv
 
 ### Import errors
 
-Below we have the errors related to imports:
+Below we have errors related to imports:
 
 ```
 ************* Module app
+app.py:7:0: C0413: Import "import routes" should be placed at the top of the module (wrong-import-position)
 app.py:7:0: W0611: Unused import routes (unused-import)
 ************* Module routes
 routes.py:1:0: R0401: Cyclic import (app -> routes -> users -> db) (cyclic-import)
@@ -89,4 +90,4 @@ routes.py:1:0: R0401: Cyclic import (app -> routes) (cyclic-import)
 ```
 
 The application doesn't work without the "Unused import routes", which is why it's still there,
-and the cyclic import errors are directly related to this. 
+and the cyclic import errors are directly related to this. "import routes" also needs to come after the Flask app is created for the application to work properly.
