@@ -19,7 +19,7 @@
     <div class="show-info">
         <ul>
             <li>Type: {{ type }}</li>
-            <li>Genres: {{ genres | map(attribute='name') | join(', ') }}</li>
+            <li>Genres: {{ genres | map(attribute="name") | join(", ") }}</li>
             <li>Description: {{ description }}</li>
             <li>Release Date: {{ release_date }}</li>
             <li>Rating: {{ avg_rating }}</li>

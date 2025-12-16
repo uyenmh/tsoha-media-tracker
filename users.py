@@ -1,8 +1,9 @@
 import os
-from db import db
 from flask import abort, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
+from db import db
 
 def register(name, password, role):
     hash_value = generate_password_hash(password)
@@ -11,10 +12,11 @@ def register(name, password, role):
                  VALUES (:name, :password, :role)""")
         db.session.execute(sql, {"name":name, "password":hash_value, "role":role})
         db.session.commit()
-    except:
+    except SQLAlchemyError:
+        db.session.rollback()
         return False
     return login(name, password)
-    
+
 def login(name, password):
     sql = text("SELECT password, id, role FROM users WHERE name=:name")
     result = db.session.execute(sql, {"name":name})

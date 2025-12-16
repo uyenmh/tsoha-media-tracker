@@ -1,12 +1,17 @@
-from app import app
 from flask import render_template, request, redirect
+from app import app
 import users
 import shows
 
 @app.route("/")
 def index():
     sort_by = request.args.get("sort_by", "Title")
-    return render_template("index.html", shows=shows.get_all_shows(sort_by), keyword=None, sort_by=sort_by)
+    return render_template(
+        "index.html",
+        shows=shows.get_all_shows(sort_by),
+        keyword=None,
+        sort_by=sort_by
+    )
 
 @app.route("/add_show", methods=["GET", "POST"])
 def add_show():
@@ -15,27 +20,26 @@ def add_show():
     if request.method == "GET":
         return render_template("add_show.html", genres=shows.get_all_genres())
 
-    if request.method == "POST":
-        users.check_csrf()
+    users.check_csrf()
 
-        title = request.form["title"]
-        if len(title) < 1 or len(title) > 100:
-            return render_template("error.html", message="Title must be 1-100 characters")
+    title = request.form["title"]
+    if len(title) < 1 or len(title) > 100:
+        return render_template("error.html", message="Title must be 1-100 characters")
 
-        show_type = request.form["type"]
+    show_type = request.form["type"]
 
-        genre_ids = request.form.getlist("genres")
-        genre_ids = [int(genre_id) for genre_id in genre_ids]
-        
-        description = request.form["description"]
-        if len(description) > 10000:
-            return render_template("error.html", message="Description is too long")
-            
-        release_date = request.form["release_date"]
+    genre_ids = request.form.getlist("genres")
+    genre_ids = [int(genre_id) for genre_id in genre_ids]
 
-        show_id = shows.add_show(title, show_type, description, release_date, genre_ids)
-        return redirect("/show/"+str(show_id))
-        
+    description = request.form["description"]
+    if len(description) > 10000:
+        return render_template("error.html", message="Description is too long")
+
+    release_date = request.form["release_date"]
+
+    show_id = shows.add_show(title, show_type, description, release_date, genre_ids)
+    return redirect("/show/"+str(show_id))
+
 @app.route("/remove_show", methods=["GET", "POST"])
 def remove_show():
     users.require_role(2)
@@ -44,15 +48,14 @@ def remove_show():
         all_shows = shows.get_all_shows()
         return render_template("remove_show.html", shows=all_shows)
 
-    if request.method == "POST":
-        users.check_csrf()
+    users.check_csrf()
 
-        if "show_id" in request.form:
-            show_id = request.form["show_id"]
-            shows.remove_show(show_id)
+    if "show_id" in request.form:
+        show_id = request.form["show_id"]
+        shows.remove_show(show_id)
 
-        return redirect("/")
-        
+    return redirect("/")
+
 @app.route("/show/<int:show_id>")
 def show_show(show_id):
     info = shows.get_show_info(show_id)
@@ -74,8 +77,8 @@ def show_show(show_id):
         genres=genres,
         in_watchlist=in_watchlist
     )
-    
-@app.route("/review", methods=["GET", "POST"])
+
+@app.route("/review", methods=["POST"])
 def review():
     users.require_role(1)
     users.check_csrf()
@@ -88,7 +91,7 @@ def review():
         return render_template("error.html", message="The comment is too long")
     if comment == "":
         comment = "-"
-        
+
     user_id = users.user_id()
 
     if shows.has_user_reviewed(show_id, user_id):
@@ -127,35 +130,36 @@ def register():
     if request.method == "GET":
         return render_template("register.html")
 
-    if request.method == "POST":
-        username = request.form["username"]
-        if len(username) < 1 or len(username) > 20:
-            return render_template("error.html", message="The username must have 1-20 characters")
+    username = request.form["username"]
+    if len(username) < 1 or len(username) > 20:
+        return render_template("error.html", message="The username must have 1-20 characters")
 
-        password = request.form["password"]
-        if len(password) < 8:
-            return render_template("error.html", message="The password must be at least 8 characters long")
+    password = request.form["password"]
+    if len(password) < 8:
+        return render_template(
+            "error.html",
+            message="The password must be at least 8 characters long"
+        )
 
-        role = request.form["role"]
-        if role not in ("1", "2"):
-            return render_template("error.html", message="Unknown user role")
+    role = request.form["role"]
+    if role not in ("1", "2"):
+        return render_template("error.html", message="Unknown user role")
 
-        if not users.register(username, password, role):
-            return render_template("error.html", message="Registration failed")
-        return redirect("/")
-    
+    if not users.register(username, password, role):
+        return render_template("error.html", message="Registration failed")
+    return redirect("/")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
         return render_template("login.html")
 
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+    username = request.form["username"]
+    password = request.form["password"]
 
-        if not users.login(username, password):
-            return render_template("error.html", message="Incorrect username or password")
-        return redirect("/")
+    if not users.login(username, password):
+        return render_template("error.html", message="Incorrect username or password")
+    return redirect("/")
 
 @app.route("/logout")
 def logout():
@@ -175,12 +179,11 @@ def manage_genres():
     if request.method == "GET":
         return render_template("manage_genres.html", genres=shows.get_all_genres())
 
-    if request.method == "POST":
-        users.check_csrf()
-        genre_name = request.form["genre_name"]
-        shows.add_genre(genre_name)
+    users.check_csrf()
+    genre_name = request.form["genre_name"]
+    shows.add_genre(genre_name)
 
-        return redirect("/manage_genres")
+    return redirect("/manage_genres")
 
 @app.route("/my_watchlist", methods=["GET"])
 def view_watchlist():

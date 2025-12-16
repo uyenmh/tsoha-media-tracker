@@ -1,6 +1,5 @@
-from db import db
-from flask import abort, request, session
 from sqlalchemy import text
+from db import db
 
 def get_all_shows(sort_by="Title"):
     if sort_by == "Rating":
@@ -31,14 +30,21 @@ def get_show_info(show_id):
     """)
     result = db.session.execute(sql, {"show_id": show_id}).fetchone()
     return result
-    
-def add_show(title, type, description, release_date, genre_ids=[]):
+
+def add_show(title, show_type, description, release_date, genre_ids=None):
     sql = text("""
         INSERT INTO shows (title, type, description, release_date)
         VALUES (:title, :type, :description, :release_date)
         RETURNING id
     """)
-    show_id = db.session.execute(sql, {"title": title, "type": type, "description": description, "release_date": release_date}).fetchone()[0]
+    show_id = db.session.execute(
+        sql, {
+            "title": title,
+            "type": show_type,
+            "description": description,
+            "release_date": release_date
+        }
+    ).fetchone()[0]
 
     if genre_ids:
         for genre_id in genre_ids:
@@ -52,7 +58,7 @@ def add_show(title, type, description, release_date, genre_ids=[]):
 
     db.session.commit()
     return show_id
-    
+
 def remove_show(show_id):
     sql = text("""
         DELETE FROM shows_genres
@@ -78,7 +84,7 @@ def remove_show(show_id):
     """)
     db.session.execute(sql, {"id": show_id})
     db.session.commit()
- 
+
 def get_reviews(show_id):
     sql = text("""
         SELECT r.id AS review_id,
@@ -101,7 +107,7 @@ def add_review(show_id, user_id, stars, comment):
     db.session.execute(sql, {"show_id": show_id, "user_id": user_id,
                              "stars": stars, "comment": comment})
     db.session.commit()
-    
+
 def remove_own_review(show_id, user_id):
     sql = text("""
         DELETE FROM reviews
@@ -109,7 +115,7 @@ def remove_own_review(show_id, user_id):
     """)
     db.session.execute(sql, {"show_id": show_id, "user_id": user_id})
     db.session.commit()
-    
+
 def has_user_reviewed(show_id, user_id):
     sql = text("""
         SELECT COUNT(*)
@@ -118,7 +124,7 @@ def has_user_reviewed(show_id, user_id):
     """)
     result = db.session.execute(sql, {"show_id": show_id, "user_id": user_id}).fetchone()
     return result[0] > 0
-    
+
 def remove_review_admin(review_id):
     sql = text("""
         DELETE FROM reviews
