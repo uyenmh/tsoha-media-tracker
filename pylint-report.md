@@ -25,11 +25,12 @@ shows.py:149:0: C0116: Missing function or method docstring (missing-function-do
 shows.py:165:0: C0116: Missing function or method docstring (missing-function-docstring)
 shows.py:174:0: C0116: Missing function or method docstring (missing-function-docstring)
 shows.py:182:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:190:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:200:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:210:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:218:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:226:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:197:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:205:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:215:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:225:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:233:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:241:0: C0116: Missing function or method docstring (missing-function-docstring)
 ************* Module db
 db.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 ************* Module app
@@ -53,12 +54,13 @@ routes.py:176:0: C0116: Missing function or method docstring (missing-function-d
 routes.py:189:0: C0116: Missing function or method docstring (missing-function-docstring)
 routes.py:198:0: C0116: Missing function or method docstring (missing-function-docstring)
 routes.py:210:0: C0116: Missing function or method docstring (missing-function-docstring)
-routes.py:1:0: R0401: Cyclic import (app -> routes -> users -> db) (cyclic-import)
+routes.py:222:0: C0116: Missing function or method docstring (missing-function-docstring)
 routes.py:1:0: R0401: Cyclic import (app -> routes -> shows -> db) (cyclic-import)
 routes.py:1:0: R0401: Cyclic import (app -> routes) (cyclic-import)
+routes.py:1:0: R0401: Cyclic import (app -> routes -> users -> db) (cyclic-import)
 
 ------------------------------------------------------------------
-Your code has been rated at 8.14/10 (previous run: 8.17/10, -0.03)
+Your code has been rated at 8.15/10 (previous run: 8.28/10, -0.13)
 ```
 
 ## What hasn't been fixed and why
@@ -84,9 +86,9 @@ Below we have errors related to imports:
 app.py:7:0: C0413: Import "import routes" should be placed at the top of the module (wrong-import-position)
 app.py:7:0: W0611: Unused import routes (unused-import)
 ************* Module routes
-routes.py:1:0: R0401: Cyclic import (app -> routes -> users -> db) (cyclic-import)
 routes.py:1:0: R0401: Cyclic import (app -> routes -> shows -> db) (cyclic-import)
 routes.py:1:0: R0401: Cyclic import (app -> routes) (cyclic-import)
+routes.py:1:0: R0401: Cyclic import (app -> routes -> users -> db) (cyclic-import)
 ```
 
 The application doesn't work without the "Unused import routes", which is why it's still there,

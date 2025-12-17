@@ -179,6 +179,21 @@ def add_genre(genre_name):
     db.session.execute(sql, {"genre_name": genre_name})
     db.session.commit()
 
+def remove_genre(genre_id):
+    sql = text("""
+        DELETE FROM shows_genres
+        WHERE genre_id=:genre_id
+    """)
+    db.session.execute(sql, {"genre_id": genre_id})
+
+    sql = text("""
+        DELETE FROM genres
+        WHERE id=:genre_id
+    """)
+    db.session.execute(sql, {"genre_id": genre_id})
+
+    db.session.commit()
+
 def get_all_genres():
     sql = text("""
         SELECT id, name

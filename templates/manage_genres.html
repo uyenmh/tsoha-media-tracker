@@ -27,7 +27,13 @@
     <div class="genres-list">
         <ul>
             {% for genre in genres %}
-                <li>{{ genre.name }}</li>
+                <li>{{ genre.name }}
+                    <form action="/remove_genre" method="post" style="display: inline;">
+                        <input type="hidden" name="genre_id" value="{{ genre.id }}">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                        <input type="submit" value="Remove">
+                    </form>
+                </li>
             {% endfor %}
         </ul>
     </div>

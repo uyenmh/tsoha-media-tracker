@@ -217,3 +217,13 @@ def remove_from_watchlist():
     shows.remove_from_watchlist(user_id, show_id)
 
     return redirect("/show/"+str(show_id))
+
+@app.route("/remove_genre", methods=["POST"])
+def remove_genre():
+    users.require_role(2)
+    users.check_csrf()
+
+    genre_id = request.form["genre_id"]
+    shows.remove_genre(genre_id)
+
+    return redirect("/manage_genres")
