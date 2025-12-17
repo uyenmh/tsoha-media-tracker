@@ -5,13 +5,15 @@ The application allows the user to browse series and movies, add them to their p
 ## Application features
 
 * The user/admin can log in and log out, as well as make a new account.
-* The user can browse series and movies, and add them to their personal watchlist.
+* The user/admin can browse series and movies.
+* The user can add/remove shows to/from their personal watchlist.
 * The user can view their personal watchlist to see the shows they have added.
 * The user can rate and review shows, as well as read reviews made by other people.
-* While browsing through shows, the user can sort the shows based on various criteria, such as their title, ratings or release date.
-* The user can search for shows by title or genre.
+* While browsing through shows, the user/admin can sort the shows based on various criteria, such as their title, ratings or release date.
+* The user/admin can search for shows by title or genre.
 * The admin can add and remove shows.
-* The admin can remove reviews if necessary.
+* The admin can add and remove genres.
+* The admin can remove user reviews if necessary.
 
 ## Instructions for installation and use
 
@@ -56,7 +58,7 @@ flask run
 
 After the first startup, it's recommended that you create an admin account. To create a new account, click on "Login" at the top right corner. This leads to a login page, which has a "Register" button if you don't have an account yet. You'll be logged in automatically after registration.
 
-You'll see an admin dashboard on the home page after logging in. You can add new shows through "Add new show", remove existing shows through "Remove show", and add and view genres through "Manage genres". Shows will be listed below the admin dashboard as they are added.
+You'll see an admin dashboard on the home page after logging in. You can add new shows through "Add new show", remove existing shows through "Remove show", and manage genres through "Manage genres". Shows will be listed below the admin dashboard as they are added.
 
 An admin user can also remove reviews of regular users if necessary. To do this, click on any show. If there are reviews, you should be able to see a "Remove" button next to each of them.
 
