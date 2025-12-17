@@ -56,21 +56,22 @@
             <ul>
                 {% for entry in reviews %}
                     <li> {{ entry.username }} ({{ entry.stars }}/5): "{{ entry.comment }}"
-                    {% if session.user_id == entry.user_id %}
-                        <form action="/remove_own_review" method="post" style="display: inline;">
-                            <input type="hidden" name="show_id" value="{{ id }}">
-                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                            <input type="submit" value="Remove">
-                        </form>
-                    {% endif %}
-                    {% if session.user_role == 2 %}
-                        <form action="/remove_review_admin" method="post" style="display: inline;">
-                            <input type="hidden" name="show_id" value="{{ id }}">
-                            <input type="hidden" name="review_id" value="{{ entry.review_id }}">
-                            <input type="hidden" name="user_id" value="{{ entry.user_id }}">
-                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                            <input type="submit" value="Remove">
-                        </form>
+                        {% if session.user_id == entry.user_id %}
+                            <form action="/remove_own_review" method="post" style="display: inline;">
+                                <input type="hidden" name="show_id" value="{{ id }}">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                                <input type="submit" value="Remove">
+                            </form>
+                        {% endif %}
+                        {% if session.user_role == 2 %}
+                            <form action="/remove_review_admin" method="post" style="display: inline;">
+                                <input type="hidden" name="show_id" value="{{ id }}">
+                                <input type="hidden" name="review_id" value="{{ entry.review_id }}">
+                                <input type="hidden" name="user_id" value="{{ entry.user_id }}">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                                <input type="submit" value="Remove">
+                            </form>
+                    </li>
                     {% endif %}
                 {% endfor %}
             </ul>

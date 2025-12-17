@@ -35,10 +35,6 @@
     display: block;
 }
 
-.admin-functions a:hover {
-    color: rgb(41, 41, 41);
-}
-
 /* shows list */
 .shows {
     border-radius: 12px;
@@ -59,7 +55,8 @@
     gap: 10px;
 }
 
-.search form, .sort form {
+.search form,
+.sort form {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -91,8 +88,4 @@
     text-decoration: none;
     color: rgb(41, 41, 41);
     display: block;
-}
-
-.shows-list a:hover {
-    color: rgb(41, 41, 41);
 }
