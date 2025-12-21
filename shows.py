@@ -137,10 +137,10 @@ def search_shows(keyword):
     sql = text("""
         SELECT DISTINCT s.id, s.title
         FROM shows s
-        LEFT JOIN shows_genres sg ON s.id = sg.show_id
-        LEFT JOIN genres g ON g.id = sg.genre_id
+        LEFT JOIN shows_genres sg ON s.id=sg.show_id
+        LEFT JOIN genres g ON g.id=sg.genre_id
         WHERE s.title LIKE :title_keyword
-           OR g.name = :genre_keyword
+           OR g.name=:genre_keyword
         ORDER BY s.title
     """)
     result = db.session.execute(sql, {"title_keyword": f"%{keyword}%", "genre_keyword": keyword}).fetchall()
@@ -213,8 +213,8 @@ def get_show_genres(show_id):
     sql = text("""
         SELECT g.id, g.name
         FROM genres g
-        JOIN shows_genres sg ON g.id = sg.genre_id
-        WHERE sg.show_id = :show_id
+        JOIN shows_genres sg ON g.id=sg.genre_id
+        WHERE sg.show_id=:show_id
         ORDER BY g.name
     """)
     return db.session.execute(sql, {"show_id": show_id}).fetchall()
@@ -223,8 +223,8 @@ def get_watchlist(user_id):
     sql = text("""
         SELECT s.id, s.title
         FROM watchlists w
-        JOIN shows s ON w.show_id = s.id
-        WHERE w.user_id = :user_id
+        JOIN shows s ON w.show_id=s.id
+        WHERE w.user_id=:user_id
         ORDER BY s.title
     """)
     return db.session.execute(sql, {"user_id": user_id}).fetchall()
