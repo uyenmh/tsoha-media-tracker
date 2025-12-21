@@ -156,6 +156,13 @@ def calculate_avg_rating(show_id):
 
     if result[0] is None:
         result = "N/A"
+        sql = text("""
+            UPDATE shows
+            SET avg_rating=NULL
+            WHERE id=:show_id
+        """)
+        db.session.execute(sql, {"show_id": show_id})
+        db.session.commit()
     else:
         result = round(result[0], 2)
         save_avg_rating(show_id, result)
