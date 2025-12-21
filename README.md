@@ -17,16 +17,35 @@ The application allows the user to browse series and movies, add them to their p
 
 ## Instructions for installation and use
 
+### Requirements
+
+* Python 3.9 or higher
+* SQLite 3.35 or higher
+
 ### Installation
 
-1. Clone this repository to your own device and move to its root directory. Create an .env file in the directory and specify its content as follows:
+1. Clone this repository and move to its root directory:
 
 ```bash
-DATABASE_URL=<database-local-address>
+git clone https://github.com/uyenmh/tsoha-media-tracker.git
+cd tsoha-media-tracker
+```
+
+2. Create a secret key in Python:
+
+```bash
+import secrets
+secrets.token_hex(16)
+```
+
+3. Create an .env file in the root directory and specify its content as follows:
+
+```bash
+DATABASE_NAME = media_tracker.db
 SECRET_KEY=<secret-key>
 ```
 
-2. Next, activate the virtual environment and install the application's dependencies using the following commands:
+4. Next, activate the virtual environment and install the application's dependencies using the following commands:
 
 ```bash
 python3 -m venv venv
@@ -34,10 +53,10 @@ source venv/bin/activate
 pip install -r ./requirements.txt
 ```
 
-3. Define the database schema with the command:
+5. Define the database schema with the command:
 
 ```bash
-psql < schema.sql
+sqlite3 media_tracker.db < schema.sql
 ```
 
 ### Use

@@ -143,7 +143,9 @@ def search_shows(keyword):
            OR g.name LIKE :genre_keyword
         ORDER BY s.title
     """)
-    result = db.session.execute(sql, {"title_keyword": f"%{keyword}%", "genre_keyword": keyword}).fetchall()
+    result = db.session.execute(
+        sql, {"title_keyword": f"%{keyword}%", "genre_keyword": keyword}
+    ).fetchall()
     return result
 
 def calculate_avg_rating(show_id):

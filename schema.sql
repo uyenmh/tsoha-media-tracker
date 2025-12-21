@@ -1,40 +1,40 @@
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     name TEXT UNIQUE,
     password TEXT,
     role INTEGER
 );
 
 CREATE TABLE shows (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     title TEXT UNIQUE,
     type TEXT,
     description TEXT,
     release_date DATE,
-    avg_rating FLOAT
+    avg_rating REAL
 );
 
 CREATE TABLE reviews (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
-    show_id INTEGER REFERENCES shows,
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    show_id INTEGER REFERENCES shows(id),
     stars INTEGER,
     comment TEXT
 );
 
 CREATE TABLE watchlists (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
-    show_id INTEGER REFERENCES shows,
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    show_id INTEGER REFERENCES shows(id)
 );
 
 CREATE TABLE genres (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     name TEXT UNIQUE
 );
 
 CREATE TABLE shows_genres (
-    PRIMARY KEY (show_id, genre_id),
-    show_id INTEGER REFERENCES shows,
-    genre_id INTEGER REFERENCES genres
+    show_id INTEGER REFERENCES shows(id),
+    genre_id INTEGER REFERENCES genres(id),
+    PRIMARY KEY (show_id, genre_id)
 );

@@ -21,16 +21,16 @@ shows.py:111:0: C0116: Missing function or method docstring (missing-function-do
 shows.py:119:0: C0116: Missing function or method docstring (missing-function-docstring)
 shows.py:128:0: C0116: Missing function or method docstring (missing-function-docstring)
 shows.py:136:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:149:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:165:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:151:0: C0116: Missing function or method docstring (missing-function-docstring)
 shows.py:174:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:182:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:197:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:205:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:215:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:225:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:233:0: C0116: Missing function or method docstring (missing-function-docstring)
-shows.py:241:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:183:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:191:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:206:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:214:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:224:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:234:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:242:0: C0116: Missing function or method docstring (missing-function-docstring)
+shows.py:250:0: C0116: Missing function or method docstring (missing-function-docstring)
 ************* Module db
 db.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 ************* Module app
@@ -60,7 +60,7 @@ routes.py:1:0: R0401: Cyclic import (app -> routes) (cyclic-import)
 routes.py:1:0: R0401: Cyclic import (app -> routes -> users -> db) (cyclic-import)
 
 ------------------------------------------------------------------
-Your code has been rated at 8.15/10 (previous run: 8.28/10, -0.13)
+Your code has been rated at 8.18/10 (previous run: 8.18/10, +0.00)
 ```
 
 ## What hasn't been fixed and why
