@@ -139,11 +139,11 @@ def search_shows(keyword):
         FROM shows s
         LEFT JOIN shows_genres sg ON s.id = sg.show_id
         LEFT JOIN genres g ON g.id = sg.genre_id
-        WHERE s.title ILIKE :keyword
-           OR g.name ILIKE :keyword
+        WHERE s.title LIKE :title_keyword
+           OR g.name = :genre_keyword
         ORDER BY s.title
     """)
-    result = db.session.execute(sql, {"keyword": f"%{keyword}%"}).fetchall()
+    result = db.session.execute(sql, {"title_keyword": f"%{keyword}%", "genre_keyword": keyword}).fetchall()
     return result
 
 def calculate_avg_rating(show_id):
